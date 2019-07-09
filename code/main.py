@@ -1,4 +1,5 @@
 import cv2 as cv
+from simple_pid import PID
 import sys
 from camera import camera
 from tracking import tracking
@@ -20,6 +21,12 @@ if __name__ == '__main__' :
 #--------------------------window setup---------------------------------------
 
     GUI = GUIController(camera, tracking)
+
+#--------------------------setup PID controller ---------------------------------
+
+    kp = 1
+    ki = 0.1
+    kd = 0.05
 
 #-------------------------main loop---------------------------------------
 
