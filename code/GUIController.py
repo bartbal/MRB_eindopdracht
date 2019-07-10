@@ -1,4 +1,12 @@
 import cv2 as cv
+import time
+
+class Circle():
+    def __init__(self, position, radius, color):
+        self.position = position
+        self.radius = radius
+        self.color = color
+
 
 class GUIController():
     
@@ -15,6 +23,8 @@ class GUIController():
 
         self.tracking = tracking
 
+        self.cirlces = []
+
     # function to detect click and save mouse location to targetPosition
     def select_point(self, event,x,y,flags, params):
         if event == cv.EVENT_LBUTTONDOWN:
@@ -26,6 +36,10 @@ class GUIController():
 
     # update the window
     def update(self, position, frame, targetPosition):
+
+        for circle in self.cirlces:
+            cv.circle(frame, circle.position, circle.radius, circle.color)
+
         # Draw bounding box
         if position is not False:
             # Tracking success
@@ -41,3 +55,25 @@ class GUIController():
         cv.imshow("Tracking", frame)
 
 
+    def setCircle(self, position, radius, color):
+        self.cirlces.append(Circle(position, radius, color))
+
+    def selectPoint(self, frame):
+        self.lastClick = False 
+
+        for circle in self.cirlces:
+            cv.circle(frame, circle.position, circle.radius, circle.color)
+
+        # Display result
+        cv.imshow("Tracking", frame)
+       
+        while True:
+            if self.lastClick is not False:
+                lastClick = self.lastClick
+                self.lastClick = False
+                return lastClick
+
+            # Exit if ESC pressed
+            k = cv.waitKey(1) & 0xff
+            if k == 27 : break
+            # time.sleep(0.5)

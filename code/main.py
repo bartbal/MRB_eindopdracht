@@ -11,6 +11,7 @@ if __name__ == '__main__' :
  #----------------------------setup camera----------------
 
     camera = camera(1)
+
      
 #-----------------------------tracker setup----------------------------------
 
@@ -21,6 +22,17 @@ if __name__ == '__main__' :
 #--------------------------window setup---------------------------------------
 
     GUI = GUIController(camera, tracking)
+
+#----------------------------setup servo--------------------------
+
+    Servo1 = GUI.selectPoint(camera.getNewFrame())
+    GUI.setCircle(Servo1, 5, (0,0,255))
+    Servo2 = GUI.selectPoint(camera.getNewFrame())
+    GUI.setCircle(Servo2, 5, (0,0,255))
+    Servo3 = GUI.selectPoint(camera.getNewFrame())
+    GUI.setCircle(Servo3, 5, (0,0,255))
+
+    # calculate servo direction and create servo objects
 
 #--------------------------setup PID controller ---------------------------------
 
