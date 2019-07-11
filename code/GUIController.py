@@ -55,6 +55,9 @@ class GUIController():
         cv.imshow("Tracking", frame)
 
 
+    # def showOnFrame(self, string, position, fontsize = 0.5):
+
+
     def setCircle(self, position, radius, color):
         self.cirlces.append(Circle(position, radius, color))
 
@@ -71,6 +74,9 @@ class GUIController():
             if self.lastClick is not False:
                 lastClick = self.lastClick
                 self.lastClick = False
+                
+                cv.circle(frame, lastClick, 5, (0,0,255))
+                cv.imshow("Tracking", frame)
                 return lastClick
 
             # Exit if ESC pressed

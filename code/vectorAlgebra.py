@@ -11,6 +11,10 @@ class VectorAlgebra():
 
         return result
 
+    # multiply a one-dimensional vector by a number
+    def vectorAdd(va, vb): 
+        return [va[0]+vb[0], va[1]+vb[1]]
+
     # calculate the dot product of two one-dimensional vectors. <a, b>
     def dotProduct(a, b):
         assert len(a) == len(b), "a and b are not the same length"
