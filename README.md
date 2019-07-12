@@ -5,3 +5,4 @@
 - openCV
 - pyserial
 - pyFirmata
+- simple_pid
