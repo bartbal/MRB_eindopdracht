@@ -3,7 +3,15 @@ import cv2 as cv
 
 class tracking():
     
+    """tracking constructor, creates a tracking object with the given paramters
+
+    Parameters
+    ----------
+    camera : camera
+        camera object
+    """
     def __init__(self, camera):
+        # set the tracker type
         self.tracker = cv.TrackerCSRT_create()
 
         # Define an initial bounding box
@@ -19,12 +27,18 @@ class tracking():
 
         self.camera = camera
 
-    # get the new position
-    # @return position - list: 
-    # position[0] : left top corner of the bounding box - tuple(int, int),
-    # position[1] : right bottom corner of the bounding box - tuple(int, int),
-    # position[2] : center of the bounding box - tuple(int, int)
-    # when tracking error occurs the return value is False
+    """run, get the position of the tracked object, if the object can not be found the function returns False
+
+    Return
+    ----------
+    position : tuple(p1, p2, p3)
+        p1 : tuple(x, y) - top left corner of the bounding box
+        p2 : tuple(x, y) - bottem right corner of the bounding box
+        p3 : tuple(x, y) - center of the bounding box
+    False : bool
+        when a tracking error accours
+    
+    """
     def run(self):
         # Read a new frame
         self.frame = self.camera.getNewFrame()
@@ -39,8 +53,8 @@ class tracking():
             # Tracking success
             p1 = (int(self.bbox[0]), int(self.bbox[1]))
             p2 = (int(self.bbox[0] + self.bbox[2]), int(self.bbox[1] + self.bbox[3]))
-            p3 = (int((p2[0] - p1[0]) / 2 + p1[0]), int((p2[1] - p1[1]) / 2 + p1[1])) # center coordinates of the detected object.
+            # center coordinates of the detected object.
+            p3 = (int((p2[0] - p1[0]) / 2 + p1[0]), int((p2[1] - p1[1]) / 2 + p1[1])) 
             return (p1, p2, p3)
         else :
-
             return False
